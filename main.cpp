@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <limits>
 
 using namespace std;
 
@@ -147,7 +148,6 @@ int dice_logic(){
   die1 = rand() % 6;
   die2 = rand() % 6;
 
-    cout << die1 << " " << die2 << endl;
   for(int i = 0; i < 5; i++){
     cout << diePrint[die1][i] << " " << diePrint[die2][i] << endl;
   }
@@ -243,6 +243,14 @@ bool bet_check(GameState &game){
         }
         return 1; 
     }
+
+    //fail cheking found on https://stackoverflow.com/questions/5864540/infinite-loop-with-cin-when-typing-string-while-a-number-is-expected
+    if(cin.fail()){
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    
     cout << "Sorry, the amount $" << temp_bet << " is invalid." << endl;
     cout << "Here are the betting rules for this table:" << endl;
     cout << "Minumum bet is $10, and maximum bet is $200." << endl;
